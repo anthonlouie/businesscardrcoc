@@ -1,70 +1,771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calling Card - Starbucks</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#006241" />
+<title>Anthon Louie Te — Rustan Coffee Corporation</title>
+<meta name="description" content="Technology Innovation Lead at Rustan Coffee Corporation. Tap to save contact, scan, or share via NFC." />
+
+<!-- Open Graph / iMessage / Slack previews -->
+<meta property="og:title" content="Anthon Louie Te" />
+<meta property="og:description" content="Technology Innovation Lead · Rustan Coffee Corporation" />
+<meta property="og:type" content="profile" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
 <style>
-body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0f172a;
-  font-family: Arial, sans-serif;
-}
+  :root{
+    --green: #006241;
+    --green-deep: #00472F;
+    --green-ink: #0D1F19;
+    --cream: #FAFAF7;
+    --warm-line: #E8E6DE;
+    --muted: #6B6B65;
+    --gold: #F5C75A;
+    --shadow-soft: 0 30px 60px -20px rgba(13,31,25,.25), 0 12px 24px -12px rgba(13,31,25,.18);
+  }
 
-.avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  overflow: hidden;
-  animation: softPulse 5.5s ease-in-out infinite;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
+  *{box-sizing:border-box;margin:0;padding:0}
 
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease, filter 0.4s ease;
-}
+  html,body{height:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 
-.avatar:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 
-    0 0 0 6px rgba(0,98,65,0.12),
-    0 14px 34px rgba(0,0,0,.28);
-}
+  body{
+    font-family:'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--cream);
+    background-image:
+      radial-gradient(ellipse at top right, rgba(0,98,65,.06), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(0,98,65,.04), transparent 60%);
+    color: var(--green-ink);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 24px 16px;
+    gap: 28px;
+    overflow-x:hidden;
+  }
 
-.avatar:hover img {
-  transform: scale(1.1);
-  filter: drop-shadow(0 6px 14px rgba(0,0,0,.3));
-}
+  .stage{
+    width:100%;
+    max-width: 640px;
+    perspective: 2200px;
+  }
 
-@keyframes softPulse {
-  0% {
-    transform: scale(1);
+  .card{
+    position:relative;
+    width:100%;
+    aspect-ratio: 1.72/1;
+    transform-style: preserve-3d;
+    transition: transform 0.95s cubic-bezier(.4,.2,.2,1);
+    cursor:pointer;
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+  }
+  .card.flipped{ transform: rotateY(180deg); }
+
+  .face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    border-radius: 18px;
+    overflow:hidden;
+    display:flex;
+    background:#fff;
+  }
+
+  /* ====================== FRONT ====================== */
+
+  .left{
+    flex: 1.45;
+    background: var(--cream);
+    padding: 28px 30px 24px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    position:relative;
+    z-index:2;
+  }
+
+  .right{
+    flex: 1;
+    background: var(--green);
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.08), transparent 45%),
+      radial-gradient(circle at 100% 100%, rgba(0,0,0,.18), transparent 50%);
+    padding: 28px 26px 24px 36px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    color:#fff;
+    position:relative;
+  }
+
+  .right::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 75% 15%, rgba(255,255,255,.04) 0 18px, transparent 19px),
+      radial-gradient(circle at 90% 78%, rgba(255,255,255,.04) 0 12px, transparent 13px);
+    pointer-events:none;
+  }
+
+  .brand-row{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+  }
+
+  .brand-mark{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    box-shadow: 0 2px 0 rgba(0,0,0,.08);
+  }
+  .brand-mark svg{ width: 22px; height: 22px; }
+
+  .partner-tag{
+    font-family:'Geist', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 2.4px;
+    color: var(--green);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .name-block{
+    margin-top: .5rem;
+  }
+
+  .name{
+    font-family:'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 100, "SOFT" 50;
+    font-size: clamp(28px, 5.4vw, 38px);
+    font-weight: 500;
+    color: var(--green-ink);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .role{
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 500;
+    margin-top: 10px;
+    letter-spacing: .2px;
+  }
+  .company{
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+    letter-spacing: .15px;
+  }
+
+  .dots{
+    display:flex;
+    gap: 8px;
+    align-items:center;
+  }
+  .dot{
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #D7D5CC;
+    transition: .3s;
+  }
+  .dot.on{ background: var(--green); width: 26px; border-radius: 99px; }
+
+  .avatar{
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', Georgia, serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    border: 3px solid rgba(255,255,255,.35);
+    position:absolute;
+    left: -30px;
+    top: 22px;
+    z-index: 3;
     box-shadow: 0 8px 22px rgba(0,0,0,.22);
+    overflow:hidden;
   }
-  50% {
-    transform: scale(1.025);
-    box-shadow: 
-      0 0 0 6px rgba(0,98,65,0.08),
-      0 10px 26px rgba(0,0,0,.25);
+  .avatar img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
+
+  .drink{
+    text-align:right;
+    margin-top: 28px;
+    position:relative;
+    z-index:2;
   }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 8px 22px rgba(0,0,0,.22);
+  .drink-label{
+    font-size: 10.5px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    opacity:.85;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap: 6px;
   }
-}
+  .drink-label svg{ width:13px; height:13px; }
+  .drink-name{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.15;
+    margin-top: 4px;
+  }
+
+  .bottom-right{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap: 10px;
+    position:relative;
+    z-index:2;
+  }
+
+  .stars{
+    display:flex;
+    gap: 1.5px;
+    color: var(--gold);
+  }
+  .stars svg{ width: 12px; height:12px; fill: var(--gold); }
+
+  .cta{
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,.7);
+    color:#fff;
+    font-family:'Geist', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.6px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 99px;
+    cursor:pointer;
+    text-transform: uppercase;
+    transition: .25s ease;
+  }
+  .cta:hover{ background:#fff; color: var(--green); border-color:#fff; }
+
+  /* ====================== BACK ====================== */
+
+  .back-face{
+    transform: rotateY(180deg);
+    background: var(--green);
+    background-image:
+      radial-gradient(circle at 100% 0%, rgba(255,255,255,.08), transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(0,0,0,.18), transparent 50%);
+    padding: 26px 30px;
+    color:#fff;
+    align-items:center;
+    gap: 26px;
+  }
+
+  .qr-col{
+    flex: 0 0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 10px;
+  }
+  .qr-box{
+    background:#fff;
+    padding: 10px;
+    border-radius: 12px;
+    width: 134px;
+    height: 134px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 6px 16px rgba(0,0,0,.2);
+  }
+  .qr-box canvas, .qr-box img{
+    width:100% !important;
+    height:100% !important;
+    display:block;
+  }
+  .qr-caption{
+    font-size: 10.5px;
+    letter-spacing: 1.8px;
+    opacity: .82;
+    text-transform: uppercase;
+    display:flex;
+    align-items:center;
+    gap: 5px;
+  }
+  .qr-caption svg{ width: 12px; height: 12px; }
+
+  .info-col{
+    flex: 1;
+    display:flex;
+    flex-direction:column;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .back-name{
+    font-family:'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 3px;
+    letter-spacing: -.3px;
+  }
+  .back-sub{
+    font-size: 11.5px;
+    opacity: .72;
+    font-weight: 400;
+    margin-bottom: 6px;
+    font-family:'Geist', sans-serif;
+  }
+
+  .info-row{
+    display:flex;
+    align-items:center;
+    gap: 11px;
+    font-size: 12px;
+    color: #fff;
+    text-decoration:none;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.08);
+    border: .5px solid rgba(255,255,255,.18);
+    border-radius: 9px;
+    transition: .2s;
+    cursor:pointer;
+  }
+  .info-row:hover{
+    background: rgba(255,255,255,.16);
+    transform: translateX(3px);
+    border-color: rgba(255,255,255,.32);
+  }
+  .info-row svg{ width: 14px; height: 14px; flex-shrink:0; opacity:.9; }
+  .info-row span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    min-width:0;
+  }
+
+  .share-row{
+    display:flex;
+    gap: 6px;
+    margin-top: 4px;
+    flex-wrap:wrap;
+  }
+  .share-pill{
+    display:inline-flex;
+    align-items:center;
+    gap: 5px;
+    font-size: 10.5px;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: #A8E0CC;
+    background: rgba(255,255,255,.09);
+    padding: 4px 10px;
+    border-radius: 99px;
+  }
+  .share-pill svg{ width: 11px; height: 11px; }
+
+  /* ====================== CONTROLS ====================== */
+
+  .controls{
+    display:flex;
+    gap: 10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+  }
+  .controls button{
+    cursor:pointer;
+    font-family:'Geist', sans-serif;
+    font-size: 13px;
+    padding: 10px 16px;
+    background: #fff;
+    border: 1px solid var(--warm-line);
+    border-radius: 99px;
+    color: var(--green-ink);
+    display:inline-flex;
+    align-items:center;
+    gap: 7px;
+    transition: .18s;
+    font-weight: 500;
+  }
+  .controls button:hover{
+    border-color: var(--green);
+    color: var(--green);
+    transform: translateY(-1px);
+  }
+  .controls button.primary{
+    background: var(--green);
+    color:#fff;
+    border-color: var(--green);
+  }
+  .controls button.primary:hover{
+    background: var(--green-deep);
+    border-color: var(--green-deep);
+    color:#fff;
+  }
+  .controls button svg{ width: 14px; height: 14px; }
+
+  .hint{
+    font-size: 12px;
+    color: var(--muted);
+    display:flex;
+    align-items:center;
+    gap: 6px;
+    text-align:center;
+    max-width: 480px;
+    line-height: 1.55;
+  }
+  .hint svg{ width: 13px; height: 13px; flex-shrink:0; }
+
+  footer{
+    font-size: 11px;
+    color: var(--muted);
+    opacity: .6;
+    margin-top: 8px;
+    letter-spacing: .3px;
+  }
+
+  .toast{
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green-ink);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 99px;
+    font-size: 12.5px;
+    opacity: 0;
+    transition: .28s ease;
+    pointer-events: none;
+    z-index: 1000;
+    white-space: nowrap;
+    box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  }
+  .toast.show{
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @keyframes float-in{
+    0%{ opacity:0; transform: translateY(20px) scale(.97); }
+    100%{ opacity:1; transform: translateY(0) scale(1); }
+  }
+  .stage{ animation: float-in .9s cubic-bezier(.2,.6,.2,1) both; }
+  .controls{ animation: float-in 1s .15s cubic-bezier(.2,.6,.2,1) both; }
+  .hint, footer{ animation: float-in 1s .3s cubic-bezier(.2,.6,.2,1) both; }
+
+  /* ====================== RESPONSIVE ====================== */
+
+  @media (max-width: 580px){
+    body{ padding: 16px 12px; gap: 20px; }
+    .left{ padding: 20px 18px 16px; }
+    .right{ padding: 20px 16px 16px 26px; }
+    .brand-mark{ width: 36px; height: 36px; }
+    .brand-mark svg{ width: 18px; height: 18px; }
+    .partner-tag{ font-size: 9.5px; letter-spacing: 1.8px; }
+    .avatar{
+      width: 54px; height: 54px;
+      font-size: 16px;
+      left: -22px;
+      top: 16px;
+      border-width: 2.5px;
+    }
+    .drink{ margin-top: 22px; }
+    .drink-name{ font-size: 14px; }
+    .role{ font-size: 12px; margin-top: 8px; }
+    .company{ font-size: 11px; }
+    .cta{ font-size: 10px; padding: 7px 14px; letter-spacing: 1.2px; }
+    .back-face{ padding: 18px 18px; gap: 16px; }
+    .qr-box{ width: 100px; height: 100px; padding: 7px; }
+    .back-name{ font-size: 15px; }
+    .back-sub{ font-size: 10.5px; }
+    .info-row{ font-size: 11px; padding: 7px 10px; gap: 9px; }
+    .share-pill{ font-size: 9.5px; padding: 3px 8px; }
+    .controls button{ font-size: 12px; padding: 9px 14px; }
+    .hint{ font-size: 11.5px; }
+  }
+
+  @media (max-width: 380px){
+    .name{ font-size: 24px; }
+    .dots{ display:none; }
+    .info-row span{ font-size: 10.5px; }
+  }
+
+  @media print{
+    body{ background:#fff; padding:0; }
+    .controls, .hint, footer, .toast{ display:none; }
+    .card{ box-shadow:none; }
+  }
 </style>
 </head>
 <body>
 
-<div class="avatar" aria-label="Starbucks logo">
-  <img src="https://upload.wikimedia.org/wikipedia/sco/4/45/Starbucks_Coffee_Logo.svg" alt="Starbucks Logo">
-</div>
+  <div class="stage">
+    <div class="card" id="card" role="button" tabindex="0" aria-label="Business card. Press to flip.">
+
+      <!-- ========== FRONT ========== -->
+      <div class="face front-face">
+        <div class="left">
+          <div class="brand-row">
+            <div class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z"/>
+                <path d="M16 9h2a2.5 2.5 0 0 1 0 5h-2"/>
+                <path d="M7 4c0 1.5 1 1.5 1 3M11 4c0 1.5 1 1.5 1 3"/>
+              </svg>
+            </div>
+            <div class="partner-tag">Starbucks partner</div>
+          </div>
+
+          <div class="name-block">
+            <h1 class="name">Anthon Louie Te</h1>
+            <div class="role">Technology Innovation Lead</div>
+            <div class="company">Rustan Coffee Corporation</div>
+          </div>
+
+          <div class="dots" aria-hidden="true">
+            <div class="dot on"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="avatar" aria-label="Profile photo">
+            <!-- To add a profile photo, replace "ALT" below with: <img src="profile.jpg" alt=""> -->
+            ALT
+          </div>
+
+          <div class="drink">
+            <div class="drink-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg>
+              Favorite drink
+            </div>
+            <div class="drink-name">Vanilla Sweet Cream<br/>Nitro Cold Brew</div>
+          </div>
+
+          <div class="bottom-right">
+            <div class="stars" aria-label="Five star partner">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
+            </div>
+            <button class="cta" type="button" onclick="event.stopPropagation();flipCard();">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== BACK ========== -->
+      <div class="face back-face">
+        <div class="qr-col">
+          <div class="qr-box" id="qrBox"></div>
+          <div class="qr-caption">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+            Scan to save
+          </div>
+        </div>
+
+        <div class="info-col">
+          <div class="back-name">Anthon Louie Te</div>
+          <div class="back-sub">Technology Innovation Lead · Rustan Coffee</div>
+
+          <a class="info-row" href="tel:+639190891853" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+639190891853</span>
+          </a>
+
+          <a class="info-row" href="mailto:ate@rustancoffee.ph" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>ate@rustancoffee.ph</span>
+          </a>
+
+          <a class="info-row" href="https://www.linkedin.com/in/anthonlouie/" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <span>linkedin.com/in/anthonlouie</span>
+          </a>
+
+          <a class="info-row" href="https://maps.google.com/?q=14+Jupiter+St+Bel-Air+Makati" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>14 Jupiter St., Bel-Air 1, Makati</span>
+          </a>
+
+          <div class="share-row">
+            <div class="share-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.5 16.05a6 6 0 0 1 7 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+              NFC ready
+            </div>
+            <div class="share-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              iOS · Android
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" onclick="flipCard()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Flip card
+    </button>
+    <button type="button" class="primary" onclick="downloadVCard()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Save contact
+    </button>
+    <button type="button" onclick="shareCard()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share
+    </button>
+    <button type="button" onclick="copyDetails()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy details
+    </button>
+  </div>
+
+  <div class="hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a3 3 0 0 1 6 0v5"/><path d="M9 11h6v8a3 3 0 0 1-6 0z"/></svg>
+    Tap the card to flip. Scan the QR or tap "Save contact" to add Anthon to your phone instantly.
+  </div>
+
+  <footer>Anthon Louie Te · Rustan Coffee Corporation</footer>
+
+  <div class="toast" id="toast">Saved</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+  const VCARD = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'N:Te;Anthon Louie;;;',
+    'FN:Anthon Louie Te',
+    'ORG:Rustan Coffee Corporation',
+    'TITLE:Technology Innovation Lead',
+    'TEL;TYPE=WORK,VOICE:+639190891853',
+    'EMAIL;TYPE=WORK:ate@rustancoffee.ph',
+    'ADR;TYPE=WORK:;;14 Jupiter St. cor. Asteroid St.;Bel-Air 1, Makati City;;;Philippines',
+    'URL:https://www.linkedin.com/in/anthonlouie/',
+    'NOTE:Starbucks Partner',
+    'END:VCARD'
+  ].join('\n');
+
+  function buildQR(){
+    const el = document.getElementById('qrBox');
+    if (!el || !window.QRCode) return;
+    if (el.dataset.built === '1') return;
+    el.innerHTML = '';
+    new QRCode(el, {
+      text: VCARD,
+      width: 280,
+      height: 280,
+      colorDark: '#006241',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    el.dataset.built = '1';
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', buildQR);
+  } else {
+    buildQR();
+  }
+  setTimeout(buildQR, 600);
+
+  const card = document.getElementById('card');
+  card.addEventListener('click', flipCard);
+  card.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      flipCard();
+    }
+  });
+  function flipCard(){ card.classList.toggle('flipped'); }
+
+  let toastTimer;
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  function downloadVCard(){
+    const blob = new Blob([VCARD], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Anthon_Louie_Te.vcf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 500);
+    toast('Contact card downloaded');
+  }
+
+  async function shareCard(){
+    const data = {
+      title: 'Anthon Louie Te — Rustan Coffee Corporation',
+      text: 'Technology Innovation Lead at Rustan Coffee · ate@rustancoffee.ph',
+      url: window.location.href
+    };
+    if (navigator.share){
+      try {
+        await navigator.share(data);
+        toast('Shared');
+      } catch(e){ /* user cancelled */ }
+    } else {
+      try {
+        await navigator.clipboard.writeText(data.title + '\n' + data.text + '\n' + data.url);
+        toast('Link copied to clipboard');
+      } catch(e){
+        toast('Sharing not supported');
+      }
+    }
+  }
+
+  function copyDetails(){
+    const txt = [
+      'Anthon Louie Te',
+      'Technology Innovation Lead',
+      'Rustan Coffee Corporation',
+      '+639190891853',
+      'ate@rustancoffee.ph',
+      'https://www.linkedin.com/in/anthonlouie/',
+      '14 Jupiter St. cor. Asteroid St., Bel-Air 1, Makati City'
+    ].join('\n');
+    if (navigator.clipboard){
+      navigator.clipboard.writeText(txt).then(() => toast('Details copied'));
+    } else {
+      toast('Clipboard not available');
+    }
+  }
+</script>
 
 </body>
 </html>
